@@ -80,7 +80,6 @@ class SinglyLinkedList {
     return false
   }
   insert(index, val) {
-    let node;
     if (index < 0 || index > this.length) {
       return false
     }
@@ -91,11 +90,47 @@ class SinglyLinkedList {
       this.unshift(val)
     } else {
       const newNode = new Node(val);
-      node = this.get(index - 1);
-      newNode = node.next;
+      let node = this.get(index - 1);
+      newNode.next = node.next
       node.next = newNode
     }
     this.length++
     return true
+  }
+
+  remove(index) {
+    let out;
+    if (index < 0 || index > this.length - 1) {
+      return undefined
+    }
+    if (index === this.length - 1) {
+      debugger
+      
+      out = this.pop()
+      return out
+    }
+    if (index === 0) {
+      out = this.shift().val
+    } else {
+      let node = this.get(index - 1)
+      out = node.next
+      node.next = node.next.next
+    }
+    this.length--
+    return out
+  }
+  reverse() {
+    let node = this.head;
+    this.head = this.tail
+    this.tail = node
+    let next;
+    let prev = null;
+    for (let i = 0; i < this.length; i++) {
+      next = node.next
+      node.next = prev
+      prev = node
+      node = next
+    }
+    return this
   }
 }
