@@ -1,15 +1,16 @@
-class MaxBinaryHeap {
+class PriorityQueue {
   constructor() {
     this.values = [];
   }
 
-  insert(val) {
+  insert(val, priority) {
+    let newNode = new Node(val, priority)
     this.values.push(val)
     let index = this.values.length - 1;
     while(index > 0) {
       debugger
       let parentIndex = Math.floor((index - 1)/2)
-      if (this.values[parentIndex] > val) {
+      if (this.values[parentIndex].priority >= val) {
         return this
       }
       let temp = this.values[parentIndex]
@@ -55,5 +56,12 @@ class MaxBinaryHeap {
     this.values[0] = end
     this.sinkDown()
     return max
+  }
+}
+
+class Node {
+  constructor(val, priority) {
+    this.val = val,
+    this.priority = priority
   }
 }
